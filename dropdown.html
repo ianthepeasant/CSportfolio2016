@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <link rel="stylesheet" href="buttonhtml.css" type="text/css" >
+<title>How a calculator is made</title>
+</head>
+<body>
+
+<h1>How it was made</h1>
+<p>This was made using html to create the inputs for the computer and the 
+functionality of the calculator. JavaScript is used to create buttons and making 
+sure they work properly and make the calculator usable. The use of CSS is used 
+to improve the aesthetics of the calculator when used.</p>
+
+<h2>Calculator</h2>
+
+<input id="num1input" type="number" name="quantity"/>
+
+<!--This part of the html is used to build the dropdown list for the calculator so
+that when the operator puts numbers in the input slots they can addition, multiplication, etc.
+The options allow the user to pick what value they want to use and since the html
+does th math for you we can leave it at that. The numinpurs allow users to put the numbers
+they want calculated and I separated, with over the options and one at the bottom
+to make it presentable on the website and make it easy to understand the what to do.
+For the CSS part of the calculator-->
+<select id="operatorinput">
+    <option value="+">+</option>
+    <option value="-">-</option>
+    <option value="*">*</option>
+    <option value="/">/</option>
+    <option value="root">root</option>
+    <option value="x^y">x^y</option>
+</select>
+
+<input id="num2input" type="number" name="quantity"/>
+
+
+<button id="calculate">calculate</button>
+
+
+<div id="answer"></div>
+<script type="text/javascript" src="htmlbutton.js"></script>
+
+</body>
+</html>
+<br>

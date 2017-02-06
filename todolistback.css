@@ -1,5 +1,5 @@
 body{
-     background: url(https://sgtmo.files.wordpress.com/2014/05/post_apocalyptic_the_book_of_eli_1440x900_13138.jpg) no-repeat center center fixed;
+   background: url(https://sgtmo.files.wordpress.com/2014/05/post_apocalyptic_the_book_of_eli_1440x900_13138.jpg) no-repeat center center fixed;*
   -webkit-background-size: cover;
   -moz-background-size: cover;
   -o-background-size: cover;
@@ -7,7 +7,6 @@ body{
 }
 
 tr{
-    color: #27f92e;
     font-size: 23px;
      border-style:solid;
      border-color:#27f92e;
@@ -25,11 +24,11 @@ th{
 }
 
 td{
-   color: #27f92e;
+   acolor: #27f92e;
      border-style:solid;
     border-width:3px;
     border-radius: 5px;
-    background-color: black;
+    background-color: blck;
 }
 h1{
     color: #27f92e;

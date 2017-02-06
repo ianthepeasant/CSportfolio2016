@@ -14,22 +14,21 @@
   
 //  var input = "something";
 
-  var colorInput = "red";
-  var colorInput = "blue";
-  var colorInput = "purple";
-  var colorInput = "green";
-  var colorInput = "brown";
+ 
   
 var input = document.getElementById("input");
 var enter = document.getElementById("enter");
 var output = document.getElementById("output");
+var colorInput = document.getElementById("colorInput");
 
 enter.addEventListener("click", function(){
   //output.innerHTML += "<br>" + input.value;
 
-  var listItem = document.createElement("li");
-  listItem.appendChild(document.createTextNode(input.value));
-  output.appendChild(listItem);
+  //var listItem = document.createElement("li");
+  //listItem.appendChild(document.createTextNode(input.value));          Committed out inorder to test if we can get the add to work without child nodes
+  output.innerHTML += "<div style='color:" + colorInput.value + " '>" + input.value + "</div>";
+
+  
 });
 
 output.addEventListener("click", function(evt) {

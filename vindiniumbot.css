@@ -21,15 +21,16 @@ h2{
     font-size:40px;
      border-style:solid;
     border-width:2px;
-    border-radius: 10px;
+    border-radius: 20px;
     width:20%;
     background-color: black;
 }
 p{
     color:#27f92e;
-    border-style: inset;
+    border-style: solid;
     border-color: #27f92e;
     font-size: 24px;
+    border-radius:10px;
     background-color: black;
 }
 

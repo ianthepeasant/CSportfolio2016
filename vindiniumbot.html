@@ -1,0 +1,238 @@
+<!DOCTYPE html>
+<html>
+    <head>
+         <link rel="stylesheet" href="vindiniumbot.css" type="text/css">  
+        <title>Vindinium AI Programming </title>
+    </head>
+    <body>
+  <h1>What is Vindinium</h1>
+        <br>
+<p> Vindinium is a arena type game where bots have to capture mines constantly to get the greatest amount of gold before the end of the match.
+Each match will have 1200 turns for the four bots to use and when all turns have been used the match will end with the winner being the one with the most gold.
+However, unlike most games you will more than likely not have control of your bot because you must program the bots yourself in order for them to work and they will 
+be autonomous. You can program a bot to focus on capturing mines, both free and occupied, or by targeting the bot with the most mines; anyway you want. The bots are built
+using Javascript and many of their actions are dictated by if, else, var, and task statements in order to guide them to certain goals and follow certain paths within a map, or 
+none if you want a wandering bot. The success of your bot depends on how well you built your code whether to be resourceful or ruthless. Happy Coding!</p>
+</br>
+
+<h2>My Bot</h2>
+<p> For my Vindinium bot I tried to make it more of reserved fighter who is not a risk taker
+for most of the game. My coding represents this by making my bot more likely to go to a tavern to heal
+when his health reaches 30 hp and will kill a bot if it has the most mines. Here is the code:</p>
+
+<code>
+    <pre>
+        
+        Bot.prototype.botBrain = function() {
+    return new Promise(function(resolve, reject) {
+        _this = bot;
+        
+            /*                                      *
+         * This Code is global data!            *
+         *                                      */
+  //These var statements are used to give information the bot may need when it starts running.
+        //As can be seen on var myPos there is no specific information it gives and instead gives a general understanding of how some codes may work.
+        //These just allow codes further down the algorithm to recognize these variables more readily where you can then add specific instruction with these variables.
+          var myDir;
+        var myPos = [bot.yourBot.pos.x, bot.yourBot.pos.y];
+        var i;
+
+        //This variable allows your bot to acknowledge that others exist in the match.
+//The .push function pushes all the enemyBots right next to each other rather than end-to-end like .concat.
+        var enemyBots = [];
+        if(bot.yourBot.id != 1) enemyBots.push(bot.bot1);
+        if(bot.yourBot.id != 2) enemyBots.push(bot.bot2);
+        if(bot.yourBot.id != 3) enemyBots.push(bot.bot3);
+        if(bot.yourBot.id != 4) enemyBots.push(bot.bot4);
+
+        //Several codes below instead of having .push they have .concat.
+//Concat, short for concatenate, links different variables together in series, or in this case end-to-end.
+//Since they are separate variables unlike the enemyBots if they were pushed together it would confuse the bot in which piece of information means what.
+        var enemyMines = [];
+        enemyMines = enemyBots[0].mines;
+        enemyMines = enemyMines.concat(enemyBots[1].mines);
+        enemyMines = enemyMines.concat(enemyBots[2].mines);
+       
+        var minesToClaim = bot.freeMines.concat(enemyMines);
+        
+        var allMines = minesToClaim.concat(allMines);
+        
+        var mines = enemyBots[0].mines.concat(enemyBots[1].mines, enemyBots[2].mines, bot.freeMines);
+          </pre>
+</code>
+    <br>
+    <h2>The Memory of Bot</h2>
+    <p>This piece of code is the memory banks of the bot. It is mainly composed of var values which acts as factors your bot should keep track of when doing an action.
+    An example of these variables is var myDir where it let's the bot know what directions exist in the game. What it does is access the database that is provided when creating a bot, with assets precoded in c9 vindinium, in order to be used later down the code and remember why the code is there.
+    The other codes relatively have the same property where they remind the bot what it is when including certain variables in if statements of the what and how sections.
+    The var enemyBots is used to make your aware that there are four bot, but it will not react to them or move towards them because in a var statement it is counting a certain amount of something and not commanding an action like if or else statements.
+    Under the var enemyBots is the list of all the bots that would in the game in which you use bot.yourBot.id to to tell your bot to identify the four bots and know that they exist.
+    Most of the codes below look different, but it was all in the effort in making my bot recognize mines that are owned by other bots.
+    The enemymMines line of codes was meant to find the mines of the three enemy bots not including my own as each bot was counted in order 0 to 3 rather than 1 to 4.
+    The information of these mines was then concatenated in order for the information to be put end-to-end to allow the bot to understand the what mine is which in order rather than pushed together.
+    Var minesToClaim added on to the need to get mines from other bots feeling that using a similar code as freemines would make the bot go after them as it would have done with freemines
+    and the things that are different is name of variable and what it is trying to find in the parentheses. Var allMines also had the same objective as well
+    in that the information for all mines, regardless if free or owned, would be known by the bot and once input into what and how sections the bot will go after all the mines on the map.
+    The last one is where I got help on in which it already the covers the aspects of the first two codes into one line and labels the var as just mines in general.
+    Unlike the first two attempts enemyBots gain a radius in which the bot will react to the mines as shown by [0] and connectting it with .mines. The information in the 
+    parentheses is concatenated and within it shows the targets of two particular bot that will have their mines be priority for my bot to capture along with free mines because of last line of bot.freeMines.
+    
+        
+    </p>    
+</br>
+<code>
+    <pre>
+         /*                                      *
+         * This Code Decides WHAT to do         *
+         *                                      */
+        //This section of the code is used to tell the bot what to do.
+        //That usually accounts to giving the bot specific requirements to do certain things like going to a tavern when at a certain hp level, etc. 
+        //These requirements are covered with task statements that does not do anything other than act as variables you created.
+        //Variables in these tasks are made using if statement to create the condition where something should then using else statement if proven false within the program.
+        //When adding if abnd else statements it is important to add and end in curved brackets to differentiate the tasks and codes from each other.
+        //If statements give the function using code specified from Vindinium servers that make the bots priortize certain values if they are met.
+        //Else statements allows the bot to ignore a task using a if statement and do a previous task.
+        
+        var task;
+       
+        //This task forces the bot to look for a tavern at a certain amount of hitpoints.
+        //The use of the lesser than sign runs the function of the bot to heal when below 40.
+      
+       if(bot.yourBot.life < 40){
+        task = "lowHealth";
+        }
+        
+        else if(bot.yourBot.life > 60
+        && enemyMines.length >0
+        ){
+            task = "botMine";
+        }
+        else{
+            task = "freemines";
+            //task = "captureMines";
+        }
+          </pre>
+</code>
+<h2>What Section</h2>
+<br>
+<p>This section uses the global data to ask my bot what to do within certain functions set within if statements which range from gaining health to targeting free mines.
+The first task I made for my bot was to claim mines that are not held by enemyBots with nothing else to add except task = "freemines". 
+In the What section it requires a minimal amount of coding because you set tasks as var and when you equal something to task it treats it like its own variable. This is the simplest what to do statements because most of the work comes in the how section farther down the code.
+However, when it came to healing my bot it required the same process as freemines except you have to specify when you want the bot to get the health usually setting it below a certain hp value.
+My bot is set to get health at around 40 hit points to make sure the bot can make it to a tavern after the fight or during a fight. This requires an if statement
+with function of bot.yourBot.life to specify your bot's health and then add < to indicate that if your health reaches below 40 than go to a tavern which is done through task = tavern.
+Before continuing to the last code block we must notice that at the end of each if and else statement they are ended by a curved bracket and the code block is ended by another curved bracket.
+These brackets are used to create the the code blocks and will be prevalent in both the what and how section to activate if and for statements in the later parts.
+The last code is an offensive objective of my bot that tells it to capture the mines of other bots when its health is above a certain amount which is represented by >.
+Greater than sign gives the bot the instruction that if the bot's health is above 60 than go get mines because I felt that 60 was a generous amount of health the bot can waste capturing mines and still have enough to fight bots to take their mines. 
+It can do two things at once within one code block because they are connect by && which signal to the else if statements that there another action the bot can do when over 60 hitpoints.
+
+
+    
+</p>
+
+</br>
+
+ <code>
+    <pre>
+         /*                                      *
+         * This Code Determines HOW to do it    *
+         *                                      */
+         
+            //The if statement here gives the code block below to work only with the set task of freemines which was stated in the "What" global data.
+        //[0] is set next to the code that gives the position of freemines and that the number in the brackets "activate" the code in a proximity.
+        //the for statement i = 0 is the initiator which activates when proven.
+        //The function specifies what it is activating and how it is going to activate which is the distance the bot reaches it.
+        //The last if statement gives the bot information need to do the task.
+        //myPos tells the bot where it is, closestMine is a variable that tells where the closes mine is, i tells how far the bot has to be to complete task.
+        //bot.findDistance is a code from Vindinium to allow the bot to tell how far it has based on the increment given by the i.
+          
+          if(task === "freemines") {
+            var closestMine = bot.freeMines[0];
+            for(i = 0; i < bot.freeMines.length; i++) {
+                if(bot.findDistance(myPos, closestMine) > bot.findDistance(myPos, bot.freeMines[i])) {
+                    closestMine = bot.freeMines[i];
+                }
+            }
+            //Console.log gives the user a message when the task given to the bot has been completed.
+            //myDir gives the bot the ability to find its way when moving from its position to another area.
+            console.log("Claiming a Free Mine!");
+            myDir = bot.findPath(myPos, closestMine);
+        }
+        
+         if (task === "botMine"){
+        var everyMine = mines[0]; 
+            for(i=0;i < mines.length;i++){ 
+            if(bot.findDistance (myPos,everyMine) > bot.findDistance(myPos , mines[i])){ 
+            everyMine = mines[i]; 
+            } 
+        } 
+            console.log("Attacking a botMine");
+            myDir = bot.findPath(myPos, everyMine);
+        }
+        
+        
+        if(task === "lowHealth"){
+    var closestTavern = bot.taverns[0];
+    for(i = 0; i < bot.taverns.length; i++){
+        if(bot.findDistance(myPos, closestTavern) > bot.findDistance(myPos, bot.taverns[i])) {
+                    closestTavern = bot.taverns[i];
+    }
+}
+        console.log("Let's get hammered!");
+        myDir = bot.findPath(myPos,closestTavern);
+}
+  </pre>
+</code>
+<h2>How Section</h2>
+<br>
+<p>This is the how section where it takes the tasks from the what section and creates more detailed instructions on how the bot should go about doing and completeing the tasks.
+My code for the first task, "freemines", goes into specifics of what radius the bot should reach in order for it to go after the task which is shown by [0] where the backets confirm the number for the code.
+Once you set that radius you must put it into a for statement in order for the bot to recognize this new set value. In my for statement I equate i = 0
+to make sure the bot understands the new value and iniate the for statement then set the function to identify this order through length by using bot.freeMines to tell the bot what to do then add .length.
+i++ adds increments to allow the bot to go after targets further away and may do this as many times it needs. Below the code blocks there are console.log that will show up on your
+feed when completeing or doing a task where you can add your messages to make them funny or just go with the standard statements. Below the console is myDir where you give the 
+bot the postion of the objectives you want it to accomplish from its relative position to them through the arrays that represent where the objectives are. 
+The later codes follow the same process with differing functionalities and objectives with botMine giving the bot the position of all mines, both free and captured, to make the bot aggressive in taking mines
+and attacking bots that try to stop it. LowHealth tells the bot where the taverns are on the map in order for the to use them and are able to set how close to the tavern they have to be in order to heal the bot.
+
+    
+</p>
+
+</br>
+ <code>
+    <pre>
+         //This code block gives certain directions the bot should go when needed by telling it to go north, south, east, and west.
+        //The bot can also go in random directions by equating myDir to none which gives it no particular direction.
+        //var dirs then adds north, south, east, west to give myDir direction to go, albeit randomly because it equates to none or no direction.
+  if(myDir === "none") {
+            console.log("Going Random!");
+            var rand = Math.floor(Math.random() * 3);
+            var dirs = ["north", "south", "east", "west"];
+            bot.goDir = dirs[rand];
+        }
+        else {
+            bot.goDir = myDir;
+        }
+        
+          ///////////* DON'T REMOVE ANTYTHING BELOW THIS LINE *//////////////
+         resolve();
+    });
+}
+bot.runGame();
+    </pre>
+</code>
+<br>
+<h2>Start Up and Movement</h2>
+<p>These last lines of code is what get the bot to move around the map and activates the bot when a match happens on Vindinium servers. 
+This is also where myDir, which were added in earlier parts of the code and was added as a variable at the start, can be set for the bot to move around in specific directions during each turn.
+It is currently set on none because it did not matter where the bot went as long as it got the objectives is what I cared about, so letting it move randomly was okay with me.
+Also since I chose to make the bot stay random there was var that randomized the process by calculating floor tiles randomly to where the bot should go.
+OF course, in order for the bot to go anywhere in the first place it must have existing directions to work with which are north, south, east, and west although where it will go is a mystery.
+To confirm the movement we use bot.goDir and set it to dirs[rand] to make the bot go in random directions. 
+    
+</p>
+</br>    
+    </body>
+    </body>
+</html>

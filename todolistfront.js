@@ -15,7 +15,9 @@
 //  var input = "something";
 
  
-  
+// These are the codes that allows the drop down list to work and function properly. The enter and input lets the list in html be usable using getElementById.
+//The ouput an colorInput allows the color option to affect the text.
+
 var input = document.getElementById("input");
 var enter = document.getElementById("enter");
 var output = document.getElementById("output");
@@ -30,7 +32,7 @@ enter.addEventListener("click", function(){
 
   
 });
-
+//The parentNode,removeChild is used by the code to copy a element within the program and be able to copy the same element endlessly.
 output.addEventListener("click", function(evt) {
   var remove = evt.target;
   remove.parentNode.removeChild(remove);

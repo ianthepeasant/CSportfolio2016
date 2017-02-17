@@ -3,6 +3,9 @@
 <head>
  
  <!--<form>-->
+ <!-- I wanted to keep the the style while also allowing the text to change color, so I had friend teach me how
+ to integrat the css functions for the boxes to not affect the text colors and let the options work independent of the 
+ css. It is mostly a copy of the same code in css except using #toDoBox which allows options to work.-->
 <style>
  #toDoBox{
   color:#27f92e;
@@ -13,7 +16,8 @@
     min-height: 10pc;
  }
 </style>
- 
+ <!-- This codes is used to connect a css to html with a simple linkage of the two languages and then specifying what you want it to effect
+ with types equaling text and href it to the certain css file which makes it a external file that affect the whole file.-->
   <link rel="stylesheet" href="todolistback.css" type="text/css">    
         <title>How to do a To-Do List </title>
 </head>
@@ -179,7 +183,10 @@
    
     
     
-  
+  <!--This part of the code is used to giv the user options for the user in terms of how they want to color coat their tasks
+  Input id enables the function of making the options usable when comebined with Javascript and adding the colors by using the button.
+  For th options I had to put them between select with the id of colorInput to make the colors work and be visible in the final program.
+ -->
        <input id="input"> 
        <button id="enter"> Enter</button>
       <br> 
@@ -197,6 +204,9 @@
    <!--<form>-->
    <!--    <button id="delbutton" onClick="history.go(0)"> Delete All </button>-->
    <!--    </form>-->
+   <!-- These divs are there to allow outside elements from other codes to affect the html page with toDoBox to allow
+   css to function within the needs of html like text color and border of boxes. The output is used to get colors to work with 
+   javascript into a workable drop down list with clickable options.-->
    <div id="toDoBox">
      <div id="output">
          <!--<ul id="lister">-->
